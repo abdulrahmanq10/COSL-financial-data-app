@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='cosl logo.png') }}" alt="COSL Logo" class="logo">
+  </div>
+
+  <div class="container1">
+    <h2>Revenue Records</h2>
+    <table>
+      <tr>{% for col in columns.revenue %}<th>{{ col }}</th>{% endfor %}</tr>
+      {% for row in revenue %}
+        <tr>{% for col in columns.revenue %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </table>
+
+    <h2>Cost Records</h2>
+    <table>
+      <tr>{% for col in columns.cost %}<th>{{ col }}</th>{% endfor %}</tr>
+      {% for row in cost %}
+        <tr>{% for col in columns.cost %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </table>
+
+    <h2>Profit List</h2>
+    <table>
+      <tr>{% for col in columns.profit %}<th>{{ col }}</th>{% endfor %}</tr>
+      {% for row in profit %}
+        <tr>{% for col in columns.profit %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </table>
+
+    <div class="back-download-btns">
+      <form action="{{ url_for('index') }}" method="get">
+        <button type="submit">Back</button>
+      </form>
+
+      <form action="/download" method="POST">
+        <input type="hidden" name="file_type" value="{{ file_type }}">
+        <input type="hidden" name="file_path" value="{{ file_path }}">
+        <button type="submit">Download Excel Report</button>
+      </form>
+
+
+    </div>
+  </div>
+</body>
+</html>
